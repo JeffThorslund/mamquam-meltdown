@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { timing } from "./_utils/parseRecords";
+import { parseRecords } from "./_utils/parseRecords";
 
 function App() {
   const normalStarts = [
@@ -25,7 +25,7 @@ function App() {
     ],
   };
 
-  const results = timing(normalStarts, normalEnds);
+  const results = parseRecords(normalStarts, normalEnds);
 
   console.log(results);
 

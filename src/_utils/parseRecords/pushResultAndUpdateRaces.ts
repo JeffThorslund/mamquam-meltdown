@@ -1,3 +1,5 @@
+import { MixedEntry, CurrentRaceStatus, Results, EntryType } from "../../types";
+
 export const pushResultAndUpdateRaces = (
   entry: MixedEntry,
   races: CurrentRaceStatus,
@@ -7,7 +9,35 @@ export const pushResultAndUpdateRaces = (
   const entryTime = entry.time;
   const currentRaceStatus = races[entry.racerId];
 
-  // No end time was recorded for the racer before the next race start.
+  // did not start
+  if (entryType === EntryType.END && !currentRaceStatus) {
+    results[entry.racerId].push({
+      startTime: null,
+      endTime: entry.time,
+    });
+
+    return;
+  }
+
+  // successful start
+  if (entryType === EntryType.START && !currentRaceStatus) {
+    races[entry.racerId] = entryTime;
+
+    return;
+  }
+
+  // successful finish
+  if (entryType === EntryType.END && currentRaceStatus) {
+    races[entry.racerId] = undefined;
+
+    results[entry.racerId].push({
+      startTime: currentRaceStatus,
+      endTime: entry.time,
+    });
+
+    return;
+  }
+
   if (entryType === EntryType.START && currentRaceStatus) {
     races[entry.racerId] = entryTime;
 
@@ -17,34 +47,5 @@ export const pushResultAndUpdateRaces = (
     });
   }
 
-  // Racer is successfully starting a new race
-  else if (entryType === EntryType.START && !currentRaceStatus) {
-    races[entry.racerId] = entryTime;
-  }
-
-  // Racer is successfully ending a race
-  else if (entryType === EntryType.END && currentRaceStatus) {
-    races[entry.racerId] = undefined;
-
-    results[entry.racerId].push({
-      startTime: currentRaceStatus,
-      endTime: entry.time,
-    });
-  }
-
-  // Racer is ending race but never started one
-  else if (entryType === EntryType.END && !currentRaceStatus) {
-    results[entry.racerId].push({
-      startTime: null,
-      endTime: entry.time,
-    });
-  }
-
-  // Some other error
-  else {
-    results[entry.racerId].push({
-      startTime: null,
-      endTime: null,
-    });
-  }
+  return;
 };

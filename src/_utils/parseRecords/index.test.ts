@@ -1,6 +1,13 @@
-import { timing } from "./index";
+import { parseRecords } from "./index";
 import { mergeAndSortEntries } from "./mergeAndSortEntries";
 import { createResults } from "./createMaps";
+import {
+  EndEntry,
+  Entry,
+  EntryType,
+  MixedEntry,
+  StartEntry,
+} from "../../types";
 
 // test variables
 const emptyStarts: Entry[] = [];
@@ -9,7 +16,7 @@ const emptyEnds: Entry[] = [];
 describe("timing", () => {
   test("both empty lists", () => {
     const expected = {};
-    expect(timing(emptyStarts, emptyEnds)).toEqual(expected);
+    expect(parseRecords(emptyStarts, emptyEnds)).toEqual(expected);
   });
 
   test("normal runs", () => {
@@ -37,7 +44,7 @@ describe("timing", () => {
       ],
     };
 
-    expect(timing(normalStarts, normalEnds)).toEqual(expected);
+    expect(parseRecords(normalStarts, normalEnds)).toEqual(expected);
   });
 
   test("include did not finish", () => {
@@ -70,7 +77,7 @@ describe("timing", () => {
       ],
     };
 
-    expect(timing(normalStarts, normalEnds)).toEqual(expected);
+    expect(parseRecords(normalStarts, normalEnds)).toEqual(expected);
   });
 
   test("include did not finish as last race", () => {
@@ -95,7 +102,7 @@ describe("timing", () => {
       ],
     };
 
-    expect(timing(normalStarts, normalEnds)).toEqual(expected);
+    expect(parseRecords(normalStarts, normalEnds)).toEqual(expected);
   });
 
   test("did not start", () => {
@@ -120,7 +127,7 @@ describe("timing", () => {
       ],
     };
 
-    expect(timing(missingStarts, normalEnds)).toEqual(expected);
+    expect(parseRecords(missingStarts, normalEnds)).toEqual(expected);
   });
 
   test("racer got passed", () => {
@@ -148,7 +155,7 @@ describe("timing", () => {
       ],
     };
 
-    expect(timing(missingStarts, normalEnds)).toEqual(expected);
+    expect(parseRecords(missingStarts, normalEnds)).toEqual(expected);
   });
 });
 
@@ -157,10 +164,12 @@ test("create races structure", () => {
     {
       racerId: "1",
       time: 123,
+      type: EntryType.START,
     },
     {
       racerId: "2",
       time: 456,
+      type: EntryType.START,
     },
   ];
 
@@ -175,53 +184,53 @@ describe("merging", () => {
   });
 
   test("merge only starts", () => {
-    const starts = [
-      { racerId: "1", time: 1 },
-      { racerId: "2", time: 2 },
+    const starts: StartEntry[] = [
+      { racerId: "1", time: 1, type: EntryType.START },
+      { racerId: "2", time: 2, type: EntryType.START },
     ];
 
-    const ends: Entry[] = [];
+    const ends: EndEntry[] = [];
 
-    const expected = [
-      { racerId: "1", time: 1, type: "start" },
-      { racerId: "2", time: 2, type: "start" },
+    const expected: MixedEntry[] = [
+      { racerId: "1", time: 1, type: EntryType.START },
+      { racerId: "2", time: 2, type: EntryType.START },
     ];
 
     expect(mergeAndSortEntries(starts, ends)).toEqual(expected);
   });
 
   test("merge only ends", () => {
-    const ends = [
-      { racerId: "1", time: 1 },
-      { racerId: "2", time: 2 },
+    const ends: EndEntry[] = [
+      { racerId: "1", time: 1, type: EntryType.END },
+      { racerId: "2", time: 2, type: EntryType.END },
     ];
 
-    const starts: Entry[] = [];
+    const starts: StartEntry[] = [];
 
-    const expected = [
-      { racerId: "1", time: 1, type: "end" },
-      { racerId: "2", time: 2, type: "end" },
+    const expected: MixedEntry[] = [
+      { racerId: "1", time: 1, type: EntryType.END },
+      { racerId: "2", time: 2, type: EntryType.END },
     ];
 
     expect(mergeAndSortEntries(starts, ends)).toEqual(expected);
   });
 
   test("merge starts and ends", () => {
-    const starts = [
-      { racerId: "1", time: 1 },
-      { racerId: "2", time: 3 },
+    const starts: StartEntry[] = [
+      { racerId: "1", time: 1, type: EntryType.START },
+      { racerId: "2", time: 3, type: EntryType.START },
     ];
 
-    const ends = [
-      { racerId: "1", time: 2 },
-      { racerId: "2", time: 4 },
+    const ends: EndEntry[] = [
+      { racerId: "1", time: 2, type: EntryType.END },
+      { racerId: "2", time: 4, type: EntryType.END },
     ];
 
-    const expected = [
-      { racerId: "1", time: 1, type: "start" },
-      { racerId: "1", time: 2, type: "end" },
-      { racerId: "2", time: 3, type: "start" },
-      { racerId: "2", time: 4, type: "end" },
+    const expected: MixedEntry[] = [
+      { racerId: "1", time: 1, type: EntryType.START },
+      { racerId: "1", time: 2, type: EntryType.END },
+      { racerId: "2", time: 3, type: EntryType.START },
+      { racerId: "2", time: 4, type: EntryType.END },
     ];
 
     expect(mergeAndSortEntries(starts, ends)).toEqual(expected);

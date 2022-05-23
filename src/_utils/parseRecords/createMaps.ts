@@ -1,3 +1,5 @@
+import { MixedEntry, CurrentRaceStatus, Results } from "../../types";
+
 export const createRaces = (entries: MixedEntry[]) => {
   return entries.reduce((results, startInstance) => {
     results[startInstance.racerId] = undefined;
@@ -5,11 +7,11 @@ export const createRaces = (entries: MixedEntry[]) => {
     return results;
   }, {} as CurrentRaceStatus);
 };
-const createResults = (entry: MixedEntry[]) => {
+
+export const createResults = (entry: MixedEntry[]) => {
   return entry.reduce((results, startInstance) => {
     results[startInstance.racerId] = [];
 
     return results;
   }, {} as Results);
 };
-export { createResults };

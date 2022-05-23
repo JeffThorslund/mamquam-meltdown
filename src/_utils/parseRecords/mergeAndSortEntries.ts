@@ -1,3 +1,5 @@
+import { StartEntry, EndEntry, MixedEntry } from "../../types";
+
 const mergeAndSortEntries = (
   starts: StartEntry[],
   ends: EndEntry[]

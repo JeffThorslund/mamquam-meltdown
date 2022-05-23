@@ -1,9 +1,15 @@
 import { mergeAndSortEntries } from "./mergeAndSortEntries";
 import { createRaces, createResults } from "./createMaps";
 import { pushResultAndUpdateRaces } from "./pushResultAndUpdateRaces";
+import {
+  Entry,
+  EndEntry,
+  StartEntry,
+  MixedEntry,
+  EntryType,
+} from "../../types";
 
-export const timing = (starts: Entry[], ends: Entry[]) => {
-  // add types before merging
+export const parseRecords = (starts: Entry[], ends: Entry[]) => {
   const typedStarts: StartEntry[] = starts.map((start) => ({
     ...start,
     type: EntryType.START,
