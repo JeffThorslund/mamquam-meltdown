@@ -2,27 +2,30 @@ import { mergeAndSortEntries } from "./mergeAndSortEntries";
 import { createRaces, createResults } from "./createMaps";
 import { pushResultAndUpdateRaces } from "./pushResultAndUpdateRaces";
 import {
-  Entry,
+  CsvData,
   EndEntry,
-  StartEntry,
-  MixedEntry,
   EntryType,
+  MixedEntry,
+  StartEntry,
 } from "../../types";
+import { parseAndTypeEntries } from "./parseAndTypeEntries";
 
-export const parseRecords = (starts: Entry[], ends: Entry[]) => {
-  const typedStarts: StartEntry[] = starts.map((start) => ({
-    ...start,
-    type: EntryType.START,
-  }));
-  const typedEnds: EndEntry[] = ends.map((end) => ({
-    ...end,
-    type: EntryType.END,
-  }));
+export const parseRecords = (starts: CsvData, ends: CsvData) => {
+  // parse start and end strings into entries
+  const typedStarts: StartEntry[] = parseAndTypeEntries<EntryType.START>(
+    starts,
+    EntryType.START
+  );
+
+  const typedEnds: EndEntry[] = parseAndTypeEntries<EntryType.END>(
+    ends,
+    EntryType.END
+  );
 
   //merge entries
   const mergedEntries = mergeAndSortEntries(typedStarts, typedEnds);
 
-  // create dictionaries
+  // create blank dictionaries
   const races = createRaces(mergedEntries);
   const results = createResults(mergedEntries);
 

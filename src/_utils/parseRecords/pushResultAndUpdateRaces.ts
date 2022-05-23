@@ -38,6 +38,7 @@ export const pushResultAndUpdateRaces = (
     return;
   }
 
+  // did not finish
   if (entryType === EntryType.START && currentRaceStatus) {
     races[entry.racerId] = entryTime;
 

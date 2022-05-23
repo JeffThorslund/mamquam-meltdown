@@ -1,12 +1,15 @@
+export type CsvData = string;
+
+export type CsvRow = string[];
+
 export interface Entry {
-  racerId: string;
-  time: number;
+  racerId: RacerId;
+  time: Time;
 }
 
-export enum EntryType {
-  START,
-  END,
-}
+export type RacerId = string;
+
+export type Time = number;
 
 export interface StartEntry extends Entry {
   type: EntryType.START;
@@ -18,6 +21,11 @@ export interface EndEntry extends Entry {
 
 export interface MixedEntry extends Entry {
   type: EntryType;
+}
+
+export enum EntryType {
+  START,
+  END,
 }
 
 export interface Results {
