@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { timing } from "./_utils/timing";
+import { timing } from "./_utils/parseRecords";
 
 function App() {
   const normalStarts = [

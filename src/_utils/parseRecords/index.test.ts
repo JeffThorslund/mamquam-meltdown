@@ -1,4 +1,6 @@
-import { timing, createResults, mergeEntries, Entry } from "./timing";
+import { timing } from "./index";
+import { mergeAndSortEntries } from "./mergeAndSortEntries";
+import { createResults } from "./createMaps";
 
 // test variables
 const emptyStarts: Entry[] = [];
@@ -169,7 +171,7 @@ test("create races structure", () => {
 
 describe("merging", () => {
   test("merge empty lists", () => {
-    expect(mergeEntries([], [])).toEqual([]);
+    expect(mergeAndSortEntries([], [])).toEqual([]);
   });
 
   test("merge only starts", () => {
@@ -185,7 +187,7 @@ describe("merging", () => {
       { racerId: "2", time: 2, type: "start" },
     ];
 
-    expect(mergeEntries(starts, ends)).toEqual(expected);
+    expect(mergeAndSortEntries(starts, ends)).toEqual(expected);
   });
 
   test("merge only ends", () => {
@@ -201,7 +203,7 @@ describe("merging", () => {
       { racerId: "2", time: 2, type: "end" },
     ];
 
-    expect(mergeEntries(starts, ends)).toEqual(expected);
+    expect(mergeAndSortEntries(starts, ends)).toEqual(expected);
   });
 
   test("merge starts and ends", () => {
@@ -222,6 +224,6 @@ describe("merging", () => {
       { racerId: "2", time: 4, type: "end" },
     ];
 
-    expect(mergeEntries(starts, ends)).toEqual(expected);
+    expect(mergeAndSortEntries(starts, ends)).toEqual(expected);
   });
 });
