@@ -1,104 +1,115 @@
-interface Instance {
-  id: string;
+export interface Entry {
+  racerId: string;
   time: number;
 }
 
-interface TypedInstance extends Instance {
+interface TypedEntry extends Entry {
   type: string;
-}
-
-const mergeLists = (starts: Instance[], ends: Instance[]): TypedInstance[] => {
-  let sIndex = 0;
-  let eIndex = 0;
-
-  const mergedList: TypedInstance[] = [];
-
-  while (sIndex < starts.length - 1 && eIndex < ends.length - 1) {
-    console.log(sIndex);
-
-    //use starts
-    if (starts[sIndex].time < ends[eIndex].time) {
-      mergedList.push({ ...starts[sIndex], type: "start" });
-      sIndex++;
-    } else {
-      mergedList.push({ ...ends[eIndex], type: "end" });
-      eIndex++;
-    }
-  }
-
-  if (sIndex < starts.length) {
-    mergedList.push(
-      ...starts.slice(sIndex).map((i) => ({ ...i, type: "start" }))
-    );
-  } else {
-    mergedList.push(...ends.slice(eIndex).map((i) => ({ ...i, type: "end" })));
-  }
-
-  return mergedList;
-};
-
-const timing = (starts: Instance[], ends: Instance[]) => {
-  const baseRaceInstanceTrackingStructure =
-    createBaseRaceInstanceTrackingStructure(starts);
-
-  let sIndex = 0;
-  let eIndex = 0;
-
-  while (sIndex < starts.length - 1 && eIndex < ends.length - 1) {
-    // use start time
-    if (starts[sIndex].time < ends[eIndex].time) {
-    }
-
-    //use end time
-  }
-
-  const baseResultsTrackingStructure =
-    createBaseResultsTrackingStructure(starts);
-
-  /**
-   * Do we want to first MERGE the lists sorted by time?
-   * The right algo probably won't require that. It will check,
-   * is the next end instance after the start instance? If yes,
-   * use that end instance, if not, use next start instance.
-   * Use pointers to keep track of where we are in each array.
-   * */
-
-  /**
-   * This will be an array traversal problem.
-   * We can create a hashmap that's different from baseResultsTrackingStructure, as it only
-   * records a single race instance per racer (aka the CURRENT race). It records the start time,
-   * */
-
-  return { "1": [], "2": [] };
-};
-
-interface RaceRecord {
-  startTime: number;
-  endTime: number;
 }
 
 interface Results {
   [key: string]: RaceRecord[];
 }
 
-const createBaseResultsTrackingStructure = (starts: Instance[]) => {
+interface RaceRecord {
+  startTime: number | null;
+  endTime: number | null;
+}
+
+interface CurrentRaceStatus {
+  [key: string]: undefined | number;
+}
+
+const timing = (starts: Entry[], ends: Entry[]) => {
+  const mergedEntries = mergeEntries(starts, ends);
+  const races = createRaces(mergedEntries);
+  const results = createResults(mergedEntries);
+
+  mergedEntries.forEach((entry) => {
+    pushResultAndMutatedRaces(entry, races, results);
+  });
+
+  // finish unfinished races
+  for (const racerId in races) {
+    const currentRaceStatus = races[racerId];
+
+    if (currentRaceStatus) {
+      results[racerId].push({ startTime: currentRaceStatus, endTime: null });
+    }
+  }
+
+  return results;
+};
+
+const mergeEntries = (starts: Entry[], ends: Entry[]): TypedEntry[] => {
+  const typedStarts = starts.map((start) => ({ ...start, type: "start" }));
+  const typedEnds = ends.map((end) => ({ ...end, type: "end" }));
+
+  return [...typedStarts, ...typedEnds].sort((a, b) => a.time - b.time);
+};
+const createRaces = (starts: Entry[]) => {
   return starts.reduce((results, startInstance) => {
-    results[startInstance.id] = [];
+    results[startInstance.racerId] = undefined;
+
+    return results;
+  }, {} as CurrentRaceStatus);
+};
+const createResults = (starts: Entry[]) => {
+  return starts.reduce((results, startInstance) => {
+    results[startInstance.racerId] = [];
 
     return results;
   }, {} as Results);
 };
 
-interface RaceBase {
-  [key: string]: undefined | number;
-}
+const pushResultAndMutatedRaces = (
+  entry: TypedEntry,
+  races: CurrentRaceStatus,
+  results: Results
+): void => {
+  const entryType = entry.type;
+  const entryTime = entry.time;
+  const currentRaceStatus = races[entry.racerId];
 
-const createBaseRaceInstanceTrackingStructure = (starts: Instance[]) => {
-  return starts.reduce((results, startInstance) => {
-    results[startInstance.id] = undefined;
+  // No end time was recorded for the racer before the next race start.
+  if (entryType === "start" && currentRaceStatus) {
+    races[entry.racerId] = entryTime;
 
-    return results;
-  }, {} as RaceBase);
+    results[entry.racerId].push({
+      startTime: currentRaceStatus,
+      endTime: null,
+    });
+  }
+
+  // Racer is successfully starting a new race
+  else if (entryType === "start" && !currentRaceStatus) {
+    races[entry.racerId] = entryTime;
+  }
+
+  // Racer is successfully ending a race
+  else if (entryType === "end" && currentRaceStatus) {
+    races[entry.racerId] = undefined;
+
+    results[entry.racerId].push({
+      startTime: currentRaceStatus,
+      endTime: entry.time,
+    });
+  }
+
+  // Racer is ending race but never started one
+  else if (entryType === "end" && !currentRaceStatus) {
+    results[entry.racerId].push({
+      startTime: null,
+      endTime: entry.time,
+    });
+  }
+  // Some other error
+  else {
+    results[entry.racerId].push({
+      startTime: null,
+      endTime: null,
+    });
+  }
 };
 
-export { timing, createBaseResultsTrackingStructure, mergeLists };
+export { timing, createResults, mergeEntries };

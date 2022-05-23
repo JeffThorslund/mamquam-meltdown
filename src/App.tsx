@@ -4,6 +4,31 @@ import "./App.css";
 import { timing } from "./_utils/timing";
 
 function App() {
+  const normalStarts = [
+    { racerId: "1", time: 1 },
+    { racerId: "2", time: 3 },
+  ];
+  const normalEnds = [{ racerId: "2", time: 4 }];
+
+  const expected = {
+    "1": [
+      {
+        endTime: null,
+        startTime: 1,
+      },
+    ],
+    "2": [
+      {
+        endTime: 4,
+        startTime: 3,
+      },
+    ],
+  };
+
+  const results = timing(normalStarts, normalEnds);
+
+  console.log(results);
+
   return (
     <div className="App">
       <header className="App-header">
