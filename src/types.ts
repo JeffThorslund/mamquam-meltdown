@@ -8,7 +8,7 @@ export interface Entry {
 }
 
 export type RacerId = string;
-
+export type RacerName = string;
 export type Time = number;
 
 export interface StartEntry extends Entry {
@@ -28,8 +28,12 @@ export enum EntryType {
   END,
 }
 
+export interface NameLookup {
+  [key: RacerId]: RacerName;
+}
+
 export interface Results {
-  [key: string]: RaceRecord[];
+  [key: RacerId]: RaceRecord[];
 }
 
 export interface RaceRecord {
@@ -38,7 +42,7 @@ export interface RaceRecord {
 }
 
 export interface CurrentRaceStatus {
-  [key: string]: RaceStatus;
+  [key: RacerId]: RaceStatus;
 }
 
 export type RaceStatus = undefined | number;

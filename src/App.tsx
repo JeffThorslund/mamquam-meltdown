@@ -1,52 +1,64 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useState } from "react";
 import { parseRecords } from "./_utils/parseRecords";
+import { Box, Grommet, Tab, Tabs } from "grommet";
+import { createNameLookup } from "./_utils/parseRecords/createNameLookup";
+import { RawData } from "./components/RawData";
+import { Roster } from "./components/Roster";
+
+const theme = {
+  global: {
+    font: {
+      family: "Roboto",
+      size: "18px",
+      height: "20px",
+    },
+  },
+  tabs: {},
+  tab: {},
+};
 
 function App() {
-  const normalStarts = [
-    { racerId: "1", time: 1 },
-    { racerId: "2", time: 3 },
-  ];
-  const normalEnds = [{ racerId: "2", time: 4 }];
+  const testStarts = "1,1\n2,2\n3,3\n1,5";
+  const testEnds = "1,4\n2,7\n3,10\n1,14";
+  const testNames = "1,Jeff\n2,Archie\n3,Nat";
 
-  const expected = {
-    "1": [
-      {
-        endTime: null,
-        startTime: 1,
-      },
-    ],
-    "2": [
-      {
-        endTime: 4,
-        startTime: 3,
-      },
-    ],
-  };
+  const [starts, setStarts] = useState<string>(testStarts);
+  const [ends, setEnds] = useState<string>(testEnds);
+  const [names, setNames] = useState<string>(testNames);
+  const [activeTabIndex, setActiveTabIndex] = useState<number>(1);
 
-  const results = parseRecords(normalStarts, normalEnds);
+  const results = parseRecords(starts, ends);
 
-  console.log(results);
+  const namesLookup = createNameLookup(names);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grommet theme={theme} full>
+      <Box fill>
+        <Tabs flex activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
+          <Tab title="Raw Data">
+            <RawData
+              starts={starts}
+              setStarts={setStarts}
+              ends={ends}
+              setEnds={setEnds}
+              names={names}
+              setNames={setNames}
+            />
+          </Tab>
+          <Tab title="Roster">
+            <Roster results={results} names={namesLookup} />
+          </Tab>
+          <Tab title="Awards">
+            <Box pad="medium">Awards</Box>
+          </Tab>
+        </Tabs>
+      </Box>
+    </Grommet>
   );
 }
+
+App.args = {
+  full: true,
+};
 
 export default App;
