@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { parseRecords } from "./_utils/parseRecords";
+import { buildResults } from "./_utils/buildResults";
 import { Box, Grommet, Tab, Tabs } from "grommet";
-import { createNameLookup } from "./_utils/parseRecords/createNameLookup";
+import { buildNameLookup } from "./_utils/buildNamesLookup/buildNameLookup";
 import { RawData } from "./components/RawData";
 import { Roster } from "./components/Roster";
+import { Racers } from "./components/Racers";
+import {
+  names as testNames,
+  starts as testStarts,
+  ends as testEnds,
+} from "./testData";
 
 const theme = {
   global: {
@@ -13,23 +19,16 @@ const theme = {
       height: "20px",
     },
   },
-  tabs: {},
-  tab: {},
 };
 
 function App() {
-  const testStarts = "1,1\n2,2\n3,3\n1,5";
-  const testEnds = "1,4\n2,7\n3,10\n1,14";
-  const testNames = "1,Jeff\n2,Archie\n3,Nat";
-
   const [starts, setStarts] = useState<string>(testStarts);
   const [ends, setEnds] = useState<string>(testEnds);
   const [names, setNames] = useState<string>(testNames);
-  const [activeTabIndex, setActiveTabIndex] = useState<number>(1);
+  const [activeTabIndex, setActiveTabIndex] = useState<number>(2);
 
-  const results = parseRecords(starts, ends);
-
-  const namesLookup = createNameLookup(names);
+  const results = buildResults(starts, ends);
+  const namesLookup = buildNameLookup(names);
 
   return (
     <Grommet theme={theme} full>
@@ -47,6 +46,9 @@ function App() {
           </Tab>
           <Tab title="Roster">
             <Roster results={results} names={namesLookup} />
+          </Tab>
+          <Tab title="Index">
+            <Racers results={results} names={namesLookup} />
           </Tab>
           <Tab title="Awards">
             <Box pad="medium">Awards</Box>

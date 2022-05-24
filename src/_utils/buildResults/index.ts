@@ -10,7 +10,7 @@ import {
 } from "../../types";
 import { parseAndTypeEntries } from "./parseAndTypeEntries";
 
-export const parseRecords = (starts: CsvData, ends: CsvData) => {
+export const buildResults = (starts: CsvData, ends: CsvData) => {
   // parse start and end strings into entries
   const typedStarts: StartEntry[] = parseAndTypeEntries<EntryType.START>(
     starts,

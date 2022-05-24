@@ -1,14 +1,7 @@
-import { NameLookup, RaceRecord, Results } from "../types";
+import { NameLookup, Results } from "../../types";
 import { Box, DataTable, Text } from "grommet";
 import React from "react";
-
-function getTimeStatus(raceElement: RaceRecord) {
-  if (!raceElement.startTime && !raceElement.endTime) return "Invalid";
-  if (!raceElement.startTime) return "DNS";
-  if (!raceElement.endTime) return "DNF";
-
-  return raceElement.endTime - raceElement.startTime;
-}
+import { getTimeStatus } from "../_utils/getRaceTime";
 
 export function Roster(props: { results: Results; names: NameLookup }) {
   const mutatedData = [];
@@ -27,6 +20,7 @@ export function Roster(props: { results: Results; names: NameLookup }) {
   return (
     <Box pad="medium">
       <DataTable
+        step={mutatedData.length}
         primaryKey={true}
         sortable={true}
         sort={{
