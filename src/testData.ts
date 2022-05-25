@@ -37,8 +37,7 @@ export const names = `1,Harald Peller
 37,Franciska Orto
 38,Ganny McKenna
 39,Ambrosi Tregust
-40,Beckie Hansill
-`;
+40,Beckie Hansill`;
 
 export const starts = `23,216
 24,166
@@ -139,8 +138,7 @@ export const starts = `23,216
 39,123
 7,35
 15,173
-7,214
-`;
+7,214`;
 
 export const ends = `29,406
 28,510
@@ -241,5 +239,4 @@ export const ends = `29,406
 26,485
 10,466
 8,340
-19,427
-`;
+19,427`;
