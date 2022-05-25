@@ -1,4 +1,4 @@
-import { Box, Heading, TextArea } from "grommet";
+import { Box, TextArea } from "grommet";
 import React from "react";
 
 export const InputModule = (props: {
