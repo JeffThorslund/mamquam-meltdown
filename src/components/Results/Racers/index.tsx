@@ -1,6 +1,6 @@
 import { Box, DataTable, Text } from "grommet";
 import React from "react";
-import { NameLookup, Results } from "../../types";
+import { NameLookup, Results } from "../../../types";
 import { getMutatedRacerData } from "../Roster/_utils/getMutatedRacerData";
 
 export interface DataDic {

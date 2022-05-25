@@ -1,7 +1,7 @@
-import { NameLookup, Results } from "../../types";
+import { NameLookup, Results } from "../../../types";
 import { Box, DataTable, Text } from "grommet";
 import React from "react";
-import { getTimeStatus } from "../_utils/getRaceTime";
+import { getTimeStatus } from "../../_utils/getRaceTime";
 
 export function Roster(props: { results: Results; names: NameLookup }) {
   const mutatedData = [];

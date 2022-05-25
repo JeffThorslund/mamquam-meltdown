@@ -1,6 +1,6 @@
-import { NameLookup, Results } from "../../../types";
+import { NameLookup, Results } from "../../../../types";
 import { DataDic } from "../../Racers";
-import { getRaceTime } from "../../_utils/getRaceTime";
+import { getRaceTime } from "../../../_utils/getRaceTime";
 
 export function getMutatedRacerData(props: {
   results: Results;
