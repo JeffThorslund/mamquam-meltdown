@@ -11,6 +11,10 @@ export const pushResultAndUpdateRaces = (
 
   // did not start
   if (entryType === EntryType.END && !currentRaceStatus) {
+    if (!entry.time) {
+      console.log(entry, "dns");
+    }
+
     results[entry.racerId].push({
       startTime: null,
       endTime: entry.time,
@@ -29,6 +33,10 @@ export const pushResultAndUpdateRaces = (
   // successful finish
   if (entryType === EntryType.END && currentRaceStatus) {
     races[entry.racerId] = undefined;
+
+    if (!entry.time) {
+      console.log(entry, "succ");
+    }
 
     results[entry.racerId].push({
       startTime: currentRaceStatus,

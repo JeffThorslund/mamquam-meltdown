@@ -8,6 +8,10 @@ export function Roster(props: { results: Results; names: NameLookup }) {
 
   for (const resultsKey in props.results) {
     for (const raceElement of props.results[resultsKey]) {
+      if (!props.names[resultsKey]) {
+        console.log(raceElement);
+      }
+
       mutatedData.push({
         ...raceElement,
         racerId: resultsKey,

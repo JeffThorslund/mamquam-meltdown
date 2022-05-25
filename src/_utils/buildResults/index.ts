@@ -25,6 +25,8 @@ export const buildResults = (starts: CsvData, ends: CsvData) => {
   //merge entries
   const mergedEntries = mergeAndSortEntries(typedStarts, typedEnds);
 
+  console.log(mergedEntries);
+
   // create blank dictionaries
   const races = createRaces(mergedEntries);
   const results = createResults(mergedEntries);

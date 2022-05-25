@@ -1,5 +1,4 @@
-export const names = `
-1,Harald Peller
+export const names = `1,Harald Peller
 2,Agna Lanfare
 3,Heath Dungay
 4,Monah Sallinger
@@ -41,8 +40,7 @@ export const names = `
 40,Beckie Hansill
 `;
 
-export const starts = `
-23,216
+export const starts = `23,216
 24,166
 32,57
 2,81
@@ -144,8 +142,7 @@ export const starts = `
 7,214
 `;
 
-export const ends = `
-29,406
+export const ends = `29,406
 28,510
 29,348
 29,458
