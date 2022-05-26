@@ -1,22 +1,22 @@
 import { NameLookup, Results } from "../../../types";
 import { Box, DataTable, Text } from "grommet";
 import React from "react";
-import { getTimeStatus } from "../../_utils/getRaceTime";
+import { getAdjustedTimeStatus, getTimeStatus } from "../../_utils/getRaceTime";
 
 export function Roster(props: { results: Results; names: NameLookup }) {
   const mutatedData = [];
 
+  // prepare race data
   for (const resultsKey in props.results) {
     for (const raceElement of props.results[resultsKey]) {
-      if (!props.names[resultsKey]) {
-        console.log(raceElement);
-      }
+      const totalTime = getTimeStatus(raceElement);
 
       mutatedData.push({
         ...raceElement,
         racerId: resultsKey,
         racerName: props.names[resultsKey],
-        totalTime: getTimeStatus(raceElement),
+        totalTime: totalTime,
+        adjustedTime: getAdjustedTimeStatus(raceElement),
       });
     }
   }
@@ -49,6 +49,14 @@ export function Roster(props: { results: Results; names: NameLookup }) {
           {
             property: "totalTime",
             header: <Text>Total</Text>,
+          },
+          {
+            property: "missedGates",
+            header: <Text>Missed Gates</Text>,
+          },
+          {
+            property: "adjustedTime",
+            header: <Text>Adjusted Time</Text>,
           },
         ]}
         data={mutatedData}

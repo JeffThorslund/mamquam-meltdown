@@ -49,3 +49,15 @@ export const getTimeStatus = (race: RaceRecord) => {
 
   return getSingleRaceTime(race);
 };
+
+export const getAdjustedTimeStatus = (race: RaceRecord) => {
+  const raceStatus = getRaceStatus(race);
+
+  if (raceStatus === RaceStatus.INVALID) return "Invalid";
+  if (raceStatus === RaceStatus.DID_NOT_START) return "DNS";
+  if (raceStatus === RaceStatus.DID_NOT_FINISH) return "DNF";
+
+  const secondsDeductedPerGate = 10;
+
+  return getSingleRaceTime(race) + secondsDeductedPerGate * race.missedGates;
+};

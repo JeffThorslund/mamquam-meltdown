@@ -16,9 +16,11 @@ export interface StartEntry extends Entry {
 }
 
 export interface EndEntry extends Entry {
-  missedGates: number;
+  missedGates: MissedGates;
   type: EntryType.END;
 }
+
+export type MissedGates = number;
 
 export type MixedEntry = StartEntry | EndEntry;
 
@@ -40,7 +42,7 @@ export interface Results {
 export interface RaceRecord {
   startTime: number | null;
   endTime: number | null;
-  missedGates: number;
+  missedGates: MissedGates;
 }
 
 export interface CurrentRaceStatus {
