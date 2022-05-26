@@ -16,3 +16,34 @@ export function parseAndTypeEntries<MyEntryType>(
     };
   });
 }
+
+const getParsedData = (csvData: CsvData) => parse<CsvRow>(csvData).data;
+
+export function parseStartEntries<MyEntryType>(
+  csvData: CsvData,
+  type: MyEntryType
+) {
+  const parsedData = getParsedData(csvData);
+  return parsedData.map(([racerId, time]) => {
+    return {
+      racerId,
+      time: Number(time),
+      type,
+    };
+  });
+}
+
+export function parseEndEntries<MyEntryType>(
+  csvData: CsvData,
+  type: MyEntryType
+) {
+  const parsedData = getParsedData(csvData);
+  return parsedData.map(([racerId, time, missedGates], i) => {
+    return {
+      racerId,
+      time: Number(time),
+      missedGates: Number(missedGates),
+      type,
+    };
+  });
+}

@@ -8,24 +8,23 @@ import {
   MixedEntry,
   StartEntry,
 } from "../../types";
-import { parseAndTypeEntries } from "./parseAndTypeEntries";
+import { parseEndEntries, parseStartEntries } from "./parseAndTypeEntries";
+import { finishUnfinishedRaces } from "./finishUnfinishedRaces";
 
 export const buildResults = (starts: CsvData, ends: CsvData) => {
   // parse start and end strings into entries
-  const typedStarts: StartEntry[] = parseAndTypeEntries<EntryType.START>(
+  const typedStarts: StartEntry[] = parseStartEntries<EntryType.START>(
     starts,
     EntryType.START
   );
 
-  const typedEnds: EndEntry[] = parseAndTypeEntries<EntryType.END>(
+  const typedEnds: EndEntry[] = parseEndEntries<EntryType.END>(
     ends,
     EntryType.END
   );
 
   //merge entries
   const mergedEntries = mergeAndSortEntries(typedStarts, typedEnds);
-
-  console.log(mergedEntries);
 
   // create blank dictionaries
   const races = createRaces(mergedEntries);
@@ -37,13 +36,9 @@ export const buildResults = (starts: CsvData, ends: CsvData) => {
   });
 
   // finish unfinished races
-  for (const racerId in races) {
-    const currentRaceStatus = races[racerId];
+  finishUnfinishedRaces(races, results);
 
-    if (currentRaceStatus) {
-      results[racerId].push({ startTime: currentRaceStatus, endTime: null });
-    }
-  }
+  console.log(results);
 
   return results;
 };

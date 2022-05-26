@@ -5,7 +5,7 @@ test("empty lists", () => {
 });
 
 test("one racer start and end", () => {
-  expect(buildResults("1,1", "1,2")).toEqual({
-    1: [{ startTime: 1, endTime: 2 }],
+  expect(buildResults("1,1", "1,2,0")).toEqual({
+    1: [{ startTime: 1, endTime: 2, missedGates: 0 }],
   });
 });
