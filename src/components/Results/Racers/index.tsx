@@ -1,6 +1,6 @@
 import { Box, DataTable, Text } from "grommet";
 import React from "react";
-import { NameLookup, Results } from "../../../types";
+import { RacerInfoMap, Results } from "../../../types";
 import { getMutatedRacerData } from "../Roster/_utils/getMutatedRacerData";
 
 export interface DataDic {
@@ -14,7 +14,7 @@ interface TableData {
   racerName: string;
 }
 
-export function Racers(props: { results: Results; names: NameLookup }) {
+export function Racers(props: { results: Results; names: RacerInfoMap }) {
   const mutatedData = getMutatedRacerData(props);
 
   return (

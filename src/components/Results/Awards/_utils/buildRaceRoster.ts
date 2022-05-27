@@ -1,4 +1,4 @@
-import { NameLookup, Results, RaceRosterElement } from "../../../../types";
+import { RacerInfoMap, Results, RaceRosterElement } from "../../../../types";
 import {
   getAdjustedTimeStatus,
   getTimeStatus,
@@ -6,7 +6,7 @@ import {
 
 export function buildRaceRoster(
   results: Results,
-  names: NameLookup
+  names: RacerInfoMap
 ): RaceRosterElement[] {
   const mutatedData = [];
 
@@ -18,7 +18,7 @@ export function buildRaceRoster(
       mutatedData.push({
         ...raceElement,
         racerId: resultsKey,
-        racerName: names[resultsKey],
+        racerName: names[resultsKey].name,
         totalTime: totalTime,
         adjustedTime: getAdjustedTimeStatus(raceElement),
       });

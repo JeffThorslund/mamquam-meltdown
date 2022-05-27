@@ -1,5 +1,5 @@
 import {
-  NameLookup,
+  RacerInfoMap,
   RaceRosterElement,
   Results as ResultsType,
 } from "../../../types";
@@ -7,7 +7,7 @@ import { Box } from "grommet";
 import React from "react";
 import { buildRaceRoster } from "./_utils/buildRaceRoster";
 
-export function Awards(props: { results: ResultsType; names: NameLookup }) {
+export function Awards(props: { results: ResultsType; names: RacerInfoMap }) {
   const raceRoster = buildRaceRoster(props.results, props.names);
 
   const data = [

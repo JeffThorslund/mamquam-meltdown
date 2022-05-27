@@ -1,10 +1,10 @@
-import { NameLookup, Results } from "../../../../types";
+import { RacerInfoMap, Results } from "../../../../types";
 import { DataDic } from "../../Racers";
 import { getRaceTime } from "../../../_utils/getRaceTime";
 
 export function getMutatedRacerData(props: {
   results: Results;
-  names: NameLookup;
+  names: RacerInfoMap;
 }) {
   const dataDic: DataDic = {};
 
@@ -21,7 +21,7 @@ export function getMutatedRacerData(props: {
       numberOfRaces: props.results[resultKey].length,
       fastestLapIndex: getRaceTime(races[indexOfFastestRace]),
       fastestLap: indexOfFastestRace + 1,
-      racerName: props.names[resultKey],
+      racerName: props.names[resultKey].name,
     };
   }
 

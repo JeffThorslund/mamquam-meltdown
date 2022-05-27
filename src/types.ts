@@ -29,8 +29,19 @@ export enum EntryType {
   END,
 }
 
-export interface NameLookup {
-  [key: RacerId]: RacerName;
+export interface RacerInfoMap {
+  [key: RacerId]: RacerInfoEntry;
+}
+
+export interface RacerInfoEntry {
+  name: RacerName;
+  gender: RacerGender;
+}
+
+export enum RacerGender {
+  Male = "MALE",
+  Female = "FEMALE",
+  None = "NONE",
 }
 
 export type RacerName = string;

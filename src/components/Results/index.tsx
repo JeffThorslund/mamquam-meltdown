@@ -5,7 +5,7 @@ import {
   starts as testStarts,
 } from "../../testData";
 import { buildResults } from "../../_utils/buildResults";
-import { buildNameLookup } from "../../_utils/buildNamesLookup/buildNameLookup";
+import { buildRacerInfoLookup } from "../../_utils/buildNamesLookup/buildRacerInfoLookup";
 import { Tab, Tabs } from "grommet";
 import { RawData } from "./RawData";
 import { Roster } from "./Roster";
@@ -20,7 +20,7 @@ export const Results = () => {
   const [activeTabIndex, setActiveTabIndex] = useState<number>(2);
 
   const results = buildResults(starts, ends);
-  const namesLookup = buildNameLookup(names);
+  const namesLookup = buildRacerInfoLookup(names);
 
   return (
     <Tabs flex activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
