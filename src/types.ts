@@ -50,3 +50,10 @@ export interface CurrentRaceStatus {
 }
 
 export type RaceStatus = undefined | number;
+
+export interface RaceRosterElement extends RaceRecord {
+  racerId: RacerId;
+  racerName: RacerName;
+  totalTime: number | string;
+  adjustedTime: number | string;
+}

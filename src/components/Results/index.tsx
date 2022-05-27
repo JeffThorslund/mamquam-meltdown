@@ -6,10 +6,11 @@ import {
 } from "../../testData";
 import { buildResults } from "../../_utils/buildResults";
 import { buildNameLookup } from "../../_utils/buildNamesLookup/buildNameLookup";
-import { Box, Tab, Tabs } from "grommet";
+import { Tab, Tabs } from "grommet";
 import { RawData } from "./RawData";
 import { Roster } from "./Roster";
 import { Racers } from "./Racers";
+import { Awards } from "./Awards";
 
 export const Results = () => {
   const [starts, setStarts] = useState<string>(testStarts);
@@ -40,8 +41,9 @@ export const Results = () => {
         <Racers results={results} names={namesLookup} />
       </Tab>
       <Tab title="Awards">
-        <Box pad="medium">Awards</Box>
+        <Awards results={results} names={namesLookup} />
       </Tab>
     </Tabs>
   );
 };
+export { buildRaceRoster } from "./Awards/_utils/buildRaceRoster";
