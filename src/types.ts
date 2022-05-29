@@ -68,3 +68,15 @@ export interface RaceRosterElement extends RaceRecord {
   totalTime: number | string;
   adjustedTime: number | string;
 }
+
+export interface RaceRosterElementNum extends RaceRosterElement {
+  racerId: RacerId;
+  racerName: RacerName;
+  totalTime: number | string;
+  adjustedTime: number;
+}
+
+export enum Routes {
+  Home = "/",
+  Results = "/results",
+}

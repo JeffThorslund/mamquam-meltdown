@@ -21,7 +21,9 @@ export function getMutatedRacerData(props: {
       numberOfRaces: props.results[resultKey].length,
       fastestLapIndex: getRaceTime(races[indexOfFastestRace]),
       fastestLap: indexOfFastestRace + 1,
-      racerName: props.names[resultKey].name,
+      racerName: props.names[resultKey]
+        ? props.names[resultKey].name
+        : "Invalid",
     };
   }
 

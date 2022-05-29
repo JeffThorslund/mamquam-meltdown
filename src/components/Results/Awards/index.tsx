@@ -1,36 +1,82 @@
 import {
+  RacerGender,
   RacerInfoMap,
   RaceRosterElement,
+  RaceRosterElementNum,
   Results as ResultsType,
 } from "../../../types";
-import { Box } from "grommet";
+import { Box, List } from "grommet";
 import React from "react";
 import { buildRaceRoster } from "./_utils/buildRaceRoster";
 
 export function Awards(props: { results: ResultsType; names: RacerInfoMap }) {
   const raceRoster = buildRaceRoster(props.results, props.names);
 
-  const data = [
-    {
-      award: "Fastest Male",
-      name: (raceRoster: RaceRosterElement[]) =>
-        Math.min(
-          ...raceRoster.map((rr) => {
-            if (typeof rr.adjustedTime === "number") {
-              return rr.adjustedTime;
-            }
+  const [m1, m2, m3] = getFastestMen(raceRoster, props.names);
+  const [f1, f2, f3] = getFastestWomen(raceRoster, props.names);
 
-            return Infinity;
-          })
-        ),
-    },
-  ];
+  const data: any = [];
 
   return (
-    <Box pad="medium">
-      {data.map(({ award, name }) => {
-        return <div>{award + name(raceRoster)}</div>;
-      })}
+    <Box>
+      <List primaryKey="award" secondaryKey="data" data={data} />
     </Box>
   );
 }
+
+/*
+interface A1 { }
+interface A2 { text: string }
+type A = A1 | A2;
+const array: A[] = [{}, { text: "hello" }, {}, { text: "world" }];
+const a2s: A2[] = array
+    .filter((e): e is A2 => e.hasOwnProperty('text'));
+const lengths = a2s
+    .map(e => e.text.length);
+
+// no compile errors
+ */
+
+const removeInvalidRaces = (
+  raceRoster: RaceRosterElement[]
+): RaceRosterElementNum[] => {
+  const validRaces: RaceRosterElementNum[] = [];
+
+  for (let race of raceRoster) {
+    if (typeof race.adjustedTime === "number") {
+      validRaces.push(race as RaceRosterElementNum);
+    }
+  }
+
+  return validRaces;
+};
+
+const sortByFastest = (
+  raceRoster: RaceRosterElement[]
+): RaceRosterElementNum[] => {
+  const validRaces = removeInvalidRaces(raceRoster);
+
+  return validRaces.sort((a, b) => a.adjustedTime - b.adjustedTime);
+};
+
+const getFastestMen = (
+  racerRoster: RaceRosterElement[],
+  names: RacerInfoMap
+) => {
+  const men = racerRoster.filter(
+    (race) => names[race.racerId].gender === RacerGender.Male
+  );
+
+  return sortByFastest(men);
+};
+
+const getFastestWomen = (
+  racerRoster: RaceRosterElement[],
+  names: RacerInfoMap
+) => {
+  const women = racerRoster.filter(
+    (race) => names[race.racerId].gender === RacerGender.Female
+  );
+
+  return sortByFastest(women);
+};

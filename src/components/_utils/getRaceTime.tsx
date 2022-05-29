@@ -28,10 +28,10 @@ const isRaceValid = (race: RaceRecord): boolean => {
 };
 
 const getSingleRaceTime = (race: RaceRecord): number => {
-  const startTime = race.startTime as number;
-  const endTime = race.endTime as number;
+  const startTime = Number(race.startTime) as number;
+  const endTime = Number(race.endTime) as number;
 
-  return endTime - startTime;
+  return (endTime - startTime) * 60 * 60 * 24;
 };
 
 export const getRaceTime = (race: RaceRecord) => {
@@ -57,7 +57,9 @@ export const getAdjustedTimeStatus = (race: RaceRecord) => {
   if (raceStatus === RaceStatus.DID_NOT_START) return "DNS";
   if (raceStatus === RaceStatus.DID_NOT_FINISH) return "DNF";
 
-  const secondsDeductedPerGate = 10;
+  const secondsDeductedPerGate = 50;
 
-  return getSingleRaceTime(race) + secondsDeductedPerGate * race.missedGates;
+  return (
+    getSingleRaceTime(race) + secondsDeductedPerGate * Number(race.missedGates)
+  );
 };

@@ -18,7 +18,7 @@ export function buildRaceRoster(
       mutatedData.push({
         ...raceElement,
         racerId: resultsKey,
-        racerName: names[resultsKey].name,
+        racerName: names[resultsKey] ? names[resultsKey].name : "undefined",
         totalTime: totalTime,
         adjustedTime: getAdjustedTimeStatus(raceElement),
       });

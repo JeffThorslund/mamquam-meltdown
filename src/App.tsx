@@ -5,21 +5,12 @@ import { Router } from "./components/Router";
 import { MainHeader } from "./components/MainHeader";
 import { customTheme } from "./_utils/theme";
 
-/*
---pacific-blue: #469EB2ff;
---sky-blue: #95D8F1ff;
---big-dip-oruby: #A6003Eff;
---yellow: #FFFB00ff;
---black: #000000ff;
---white: #FFFFFFff;
- */
-
 function App() {
   return (
     <BrowserRouter>
-      <Grommet theme={customTheme} themeMode={"dark"} full>
+      <Grommet themeMode={"dark"} theme={customTheme} full>
         <Box fill>
-          <MainHeader />
+          {/*<MainHeader />*/}
           <Router />
         </Box>
       </Grommet>

@@ -23,3 +23,12 @@ export const customTheme = {
     },
   },
 };
+
+/*
+--pacific-blue: #469EB2ff;
+--sky-blue: #95D8F1ff;
+--big-dip-oruby: #A6003Eff;
+--yellow: #FFFB00ff;
+--black: #000000ff;
+--white: #FFFFFFff;
+ */

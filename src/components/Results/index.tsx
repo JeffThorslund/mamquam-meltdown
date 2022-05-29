@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
-  ends as testEnds,
   names as testNames,
-  starts as testStarts,
+  beginnerStarts,
+  beginnerEnds,
+  expertStarts,
+  expertEnds,
 } from "../../testData";
 import { buildResults } from "../../_utils/buildResults";
 import { buildRacerInfoLookup } from "../../_utils/buildNamesLookup/buildRacerInfoLookup";
@@ -11,16 +13,20 @@ import { RawData } from "./RawData";
 import { Roster } from "./Roster";
 import { Racers } from "./Racers";
 import { Awards } from "./Awards";
+import { parse } from "papaparse";
+import { CsvRow } from "../../types";
 
 export const Results = () => {
-  const [starts, setStarts] = useState<string>(testStarts);
-  const [ends, setEnds] = useState<string>(testEnds);
+  console.log(parse<CsvRow>(testNames).data);
+
+  const [starts, setStarts] = useState<string>(expertStarts);
+  const [ends, setEnds] = useState<string>(expertEnds);
   const [names, setNames] = useState<string>(testNames);
 
   const [activeTabIndex, setActiveTabIndex] = useState<number>(2);
 
-  const results = buildResults(starts, ends);
-  const namesLookup = buildRacerInfoLookup(names);
+  const results = useMemo(() => buildResults(starts, ends), [starts, ends]);
+  const racerInfoLookup = useMemo(() => buildRacerInfoLookup(names), [names]);
 
   return (
     <Tabs flex activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
@@ -35,13 +41,13 @@ export const Results = () => {
         />
       </Tab>
       <Tab title="Roster">
-        <Roster results={results} names={namesLookup} />
+        <Roster results={results} names={racerInfoLookup} />
       </Tab>
-      <Tab title="Index">
-        <Racers results={results} names={namesLookup} />
+      <Tab title="Racers">
+        <Racers results={results} names={racerInfoLookup} />
       </Tab>
       <Tab title="Awards">
-        <Awards results={results} names={namesLookup} />
+        <Awards results={results} names={racerInfoLookup} />
       </Tab>
     </Tabs>
   );
