@@ -8,7 +8,7 @@ export const Router = () => {
   return (
     <Routes>
       <Route path={RoutesEnum.Home} element={<Home />} />
-      {/*<Route path={RoutesEnum.Results} element={<Results />} />*/}
+      <Route path={RoutesEnum.Results} element={<Results />} />
     </Routes>
   );
 };

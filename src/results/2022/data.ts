@@ -1,51 +1,5 @@
-export const names = `0\tJohn Turwire\tM
-1\tRonald Shwaremranne\tM
-2\tLaoislau Hamala\tM
-3\tMegan Leicht\tF
-4\tJack McCutchan\tM
-5\tAaron Bactou\tM
-6\tKate Tracyk\tF
-7\tAnthony Gray\tM
-8\tConnor Llewellyn\tM
-9\tArcher McLeay\tM
-10\tHannah McRean\tF
-11\tPhil Michell\tM
-12\tSarah Bailey\tF
-13\tMael Pronovost\tM
-14\tAsh Bullivant\tM
-15\tJordan Muller\tM
-16\tBen Bradford\tM
-17\tRessul Henry\tM
-18\tMichelle Fortier\tF
-19\tErin Woodley\tF
-20\tMaria Ster\tF
-21\tSam Sten\tM
-22\tTim Riddel\tM
-47\tDave WOrtley\tM
-48\tStephan Pretrowski\tM
-49\tCamille Goober\tF
-50\tGisel Escher\tF
-51\tMatt Houston\tM
-52\tAdam Olejar\tM
-53\tElska Olejar\tF
-54\tJames Hamilton\tM
-55\tPhillip Gibbons\tM
-56\tClaire Robinson\tF
-57\tNeil Seifart\tM
-58\tJaime Brunet\tF
-59\tTim Bailie\tM
-142\tAnna Detmold\tF
-143\tAlec Gray\tM
-144\tKyla Edejar\tF
-145\tDomminick Mallette\tM
-146\tBethany Ladd\tF
-147\tTom Kemenscy\tM
-148\tDevin Gordon Coppieters\tM
-149\tBriar Prestidge\tF
-150\tMichelle Kovesi\tF
-undefined\tUndefined`;
-
-export const beginnerStarts = `145\t0.55677083333333
+export const beginner = {
+  starts: `145\t0.55677083333333
 147\t0.55746527777778
 6\t0.55807870370370
 58\t0.55870370370370
@@ -61,9 +15,9 @@ export const beginnerStarts = `145\t0.55677083333333
 145\t0.57010416666667
 147\t0.57010416666667
 58\t0.57010416666667
-144\t0.57181712962963`;
+144\t0.57181712962963`,
 
-export const beginnerEnds = `145\t0.55843750000
+  ends: `145\t0.55843750000
 147\t0.55891203704
 6\t0.55960648148
 58\t0.56020833333
@@ -77,9 +31,11 @@ export const beginnerEnds = `145\t0.55843750000
 6\t0.571481481481
 58\t0.57157407407
 145\t0.57164351852
-144\t0.57349537037`;
+144\t0.57349537037`,
+};
 
-export const expertStarts = `48\t0.58438657407
+export const advanced = {
+  starts: `48\t0.58438657407
 undefined\t0.58502314815
 11\t0.58565972222
 2\t0.58599537037
@@ -169,9 +125,8 @@ undefined\t0.58502314815
 12\t0.64951388889
 55\t0.64336805556
 5\t0.64416666667
-47\t0.64519675926`;
-
-export const expertEnds = `48\t0.585810185185\t0
+47\t0.64519675926`,
+  ends: `48\t0.585810185185\t0
 5\t0.586550925926\t3
 11\t0.586793981481\t0
 2\t0.587465277778\t0
@@ -260,4 +215,5 @@ export const expertEnds = `48\t0.585810185185\t0
 55\t0.644513888889\t0
 5\t0.604444444444\t0
 47\t0.646666666667\t0
-0\t0.647824074074\t0`;
+0\t0.647824074074\t0`,
+};
