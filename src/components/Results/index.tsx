@@ -1,33 +1,26 @@
-import React, { useState, useMemo } from "react";
-import { buildResults } from "../../_utils/buildResults";
-import { buildRacerInfoLookup } from "../../_utils/buildNamesLookup/buildRacerInfoLookup";
+import React from "react";
 import { Tab, Tabs } from "grommet";
-import { RawData } from "./RawData";
-import { Roster } from "./Roster";
-import { Racers } from "./Racers";
-import { Awards } from "./Awards";
-import { parse } from "papaparse";
-import { CsvRow } from "../../types";
 import { names } from "../../results/2022/names";
-import { beginner, advanced } from "../../results/2022/data";
+import { advanced, beginner } from "../../results/2022/data";
+import { ResultsTypeTabs } from "./ResultsTypeTabs";
 
-export const Results = () => {
-  const [activeTabIndex, setActiveTabIndex] = useState<number>(2);
-  const results = buildResults(advanced.starts, advanced.ends);
-  const racerInfoLookup = buildRacerInfoLookup(names);
-
+export const EventTypeTabs = () => {
   return (
-    <Tabs flex activeIndex={activeTabIndex} onActive={setActiveTabIndex}>
-      <Tab title="Roster">
-        <Roster results={results} names={racerInfoLookup} />
+    <Tabs flex>
+      <Tab title="Slalom Race">
+        <ResultsTypeTabs
+          starts={advanced.starts}
+          ends={advanced.ends}
+          names={names}
+        />
       </Tab>
-      <Tab title="Racers">
-        <Racers results={results} names={racerInfoLookup} />
-      </Tab>
-      <Tab title="Awards">
-        <Awards results={results} names={racerInfoLookup} />
+      <Tab title="Eddy Hopper Race">
+        <ResultsTypeTabs
+          starts={beginner.starts}
+          ends={beginner.ends}
+          names={names}
+        />
       </Tab>
     </Tabs>
   );
 };
-export { buildRaceRoster } from "./Awards/_utils/buildRaceRoster";

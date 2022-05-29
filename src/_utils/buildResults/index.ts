@@ -38,7 +38,5 @@ export const buildResults = (starts: CsvData, ends: CsvData) => {
   // finish unfinished races
   finishUnfinishedRaces(races, results);
 
-  console.log(results);
-
   return results;
 };

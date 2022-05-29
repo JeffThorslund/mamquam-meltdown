@@ -1,7 +1,7 @@
 import { RacerInfoMap, Results } from "../../../types";
 import { Box, DataTable, Text } from "grommet";
 import React from "react";
-import { buildRaceRoster } from "../Awards/_utils/buildRaceRoster";
+import { buildRaceRoster } from "./_utils/buildRaceRoster";
 
 export function Roster(props: { results: Results; names: RacerInfoMap }) {
   const raceRoster = buildRaceRoster(props.results, props.names).sort(

@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Grommet themeMode={"dark"} theme={customTheme} full>
         <Box fill>
-          {/*<MainHeader />*/}
+          <MainHeader />
           <Router />
         </Box>
       </Grommet>
