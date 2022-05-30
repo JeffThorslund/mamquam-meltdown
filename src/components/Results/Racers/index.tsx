@@ -21,6 +21,7 @@ export function Racers(props: { results: Results; names: RacerInfoMap }) {
     <Box pad="medium">
       <DataTable
         step={mutatedData.length}
+        primaryKey={false}
         sort={{
           direction: "asc",
           external: false,

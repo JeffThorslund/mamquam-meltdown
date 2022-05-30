@@ -8,7 +8,7 @@ import { customTheme } from "./_utils/theme";
 function App() {
   return (
     <BrowserRouter>
-      <Grommet themeMode={"dark"} theme={customTheme} full>
+      <Grommet theme={customTheme} full background={"light-1"}>
         <Box fill>
           <MainHeader />
           <Box responsive={true} width={"xlarge"} alignSelf={"center"}>

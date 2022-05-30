@@ -15,7 +15,7 @@ interface Sort {
 
 export function RaceList(props: { results: Results; names: RacerInfoMap }) {
   const [sort, setSort] = useState<Sort>({
-    direction: "desc",
+    direction: "asc",
     external: true,
     property: "adjustedTime",
   });
