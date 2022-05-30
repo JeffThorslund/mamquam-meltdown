@@ -1,6 +1,5 @@
 import { RaceRecord, RacerInfoMap, Results } from "../../../../types";
 import { DataDic } from "../../Racers";
-import { getRaceTime } from "../../../_utils/getRaceTime";
 import { formatUnixSecondsToTime } from "./formatUnixSecondsToTime";
 
 export const getTimeProperties = (race: RaceRecord) => {

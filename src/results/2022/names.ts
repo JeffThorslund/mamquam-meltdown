@@ -10,18 +10,18 @@ export const names = `0\tJohn Turwire\tM
 9\tArcher McLeay\tM
 10\tHannah McRean\tF
 11\tPhil Michell\tM
-12\tSarah Bailey\tF
+12\tSarah Baillie\tF
 13\tMael Pronovost\tM
 14\tAsh Bullivant\tM
 15\tJordan Muller\tM
 16\tBen Bradford\tM
-17\tRessul Henry\tM
+17\tRussel Henry\tM
 18\tMichelle Fortier\tF
 19\tErin Woodley\tF
 20\tMaria Ster\tF
 21\tSam Sten\tM
 22\tTim Riddel\tM
-47\tDave WOrtley\tM
+47\tDave Wortley\tM
 48\tStephan Pretrowski\tM
 49\tCamille Goober\tF
 50\tGisel Escher\tF
@@ -42,5 +42,4 @@ export const names = `0\tJohn Turwire\tM
 147\tTom Kemenscy\tM
 148\tDevin Gordon Coppieters\tM
 149\tBriar Prestidge\tF
-150\tMichelle Kovesi\tF
-undefined\tUndefined`;
+150\tMichelle Kovesi\tF`;
