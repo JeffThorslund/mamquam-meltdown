@@ -21,9 +21,8 @@ export function Racers(props: { results: Results; names: RacerInfoMap }) {
     <Box>
       <DataTable
         step={mutatedData.length}
-        sortable={true}
         sort={{
-          direction: "desc",
+          direction: "asc",
           external: false,
           property: "racerName",
         }}
@@ -34,11 +33,11 @@ export function Racers(props: { results: Results; names: RacerInfoMap }) {
           },
           {
             property: "fastestLapIndex",
-            header: <Text>Fastest Lap Index</Text>,
+            header: <Text>Fastest Lap</Text>,
           },
           {
             property: "fastestLap",
-            header: <Text>Fastest Lap</Text>,
+            header: <Text>Fastest Lap Time (seconds)</Text>,
           },
           {
             property: "numberOfRaces",

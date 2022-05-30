@@ -20,9 +20,9 @@ export const ResultsTypeTabs = (props: {
       <Tab title="Results">
         <RaceList results={results} names={racerInfoLookup} />
       </Tab>
-      {/*<Tab title="Roster">*/}
-      {/*  <Racers results={results} names={racerInfoLookup} />*/}
-      {/*</Tab>*/}
+      <Tab title="Roster">
+        <Racers results={results} names={racerInfoLookup} />
+      </Tab>
     </Tabs>
   );
 };
