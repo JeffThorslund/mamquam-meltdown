@@ -11,7 +11,9 @@ function App() {
       <Grommet themeMode={"dark"} theme={customTheme} full>
         <Box fill>
           <MainHeader />
-          <Router />
+          <Box responsive={true} width={"xlarge"} alignSelf={"center"}>
+            <Router />
+          </Box>
         </Box>
       </Grommet>
     </BrowserRouter>

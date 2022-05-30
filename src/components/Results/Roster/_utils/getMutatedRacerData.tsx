@@ -62,7 +62,7 @@ export function getMutatedRacerData(props: {
       })
       .map((race) => getTimeProperties(race).adjustedTime as number);
 
-    const fastestLap = Math.min(...racesTimes);
+    const fastestLap = racesTimes.length ? Math.min(...racesTimes) : 0;
 
     const indexOfFastestRace = racesTimes.indexOf(fastestLap);
 

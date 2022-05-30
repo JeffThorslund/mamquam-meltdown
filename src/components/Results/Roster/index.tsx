@@ -90,8 +90,6 @@ export function RaceList(props: { results: Results; names: RacerInfoMap }) {
 
   const data = appendExtraDataToList(sortedResults, props.names);
 
-  console.log(data);
-
   return (
     <Box pad="medium">
       <DataTable
