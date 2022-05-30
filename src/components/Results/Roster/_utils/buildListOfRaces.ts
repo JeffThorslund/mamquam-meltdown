@@ -1,29 +1,38 @@
-import { RacerInfoMap, RaceRosterElement, Results } from "../../../../types";
-
-import { DateTime } from "luxon";
+import {
+  RaceRecord,
+  RacerId,
+  RacerInfoMap,
+  RaceRosterElement,
+  Results,
+} from "../../../../types";
 import { getTimeProperties } from "./getTimeProperties";
 
-export const formatUnixSecondsToTime = (unixTimestamp: number): string =>
-  DateTime.fromSeconds(Number(unixTimestamp), {
-    zone: "utc",
-  }).toLocaleString(DateTime.TIME_WITH_SECONDS);
+export const flattenListOfRaces = (results: Results) => {
+  const list = [];
 
-export const buildListOfRaces = (
-  results: Results,
-  names: RacerInfoMap
-): RaceRosterElement[] => {
-  const raceRoster = [];
-
-  // prepare race data
   for (const racerId in results) {
     for (const race of results[racerId]) {
-      raceRoster.push({
-        ...getTimeProperties(race),
-        missedGates: race.missedGates,
-        racerId: racerId,
-        racerName: names[racerId] ? names[racerId].name : "undefined",
-      });
+      list.push({ ...race, racerId: racerId });
     }
   }
-  return raceRoster;
+
+  return list;
+};
+
+interface RaceRecordWithRacerId extends RaceRecord {
+  racerId: RacerId;
+}
+
+export const appendExtraDataToList = (
+  listOfRaces: RaceRecordWithRacerId[],
+  names: RacerInfoMap
+): RaceRosterElement[] => {
+  return listOfRaces.map((race) => {
+    return {
+      ...getTimeProperties(race),
+      missedGates: race.missedGates,
+      racerId: race.racerId,
+      racerName: names[race.racerId] ? names[race.racerId].name : "undefined",
+    };
+  });
 };

@@ -1,5 +1,5 @@
 import { RaceRecord } from "../../../../types";
-import { formatUnixSecondsToTime } from "./buildListOfRaces";
+import { formatUnixSecondsToTime } from "./formatUnixSecondsToTime";
 
 export const getTimeProperties = (race: RaceRecord) => {
   if (race.endTime && race.startTime) {
