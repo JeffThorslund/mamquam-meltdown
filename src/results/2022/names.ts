@@ -24,7 +24,7 @@ export const names = `0\tJohn Turwire\tM
 47\tDave Wortley\tM
 48\tStephan Pretrowski\tM
 49\tCamille Goober\tF
-50\tGisel Escher\tF
+50\tGisela Escher\tF
 51\tMatt Houston\tM
 52\tAdam Olejar\tM
 53\tElska Olejar\tF
