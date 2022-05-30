@@ -18,7 +18,7 @@ export function Racers(props: { results: Results; names: RacerInfoMap }) {
   const mutatedData = getMutatedRacerData(props);
 
   return (
-    <Box>
+    <Box pad="medium">
       <DataTable
         step={mutatedData.length}
         sort={{

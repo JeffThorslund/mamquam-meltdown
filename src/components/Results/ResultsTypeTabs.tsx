@@ -17,10 +17,10 @@ export const ResultsTypeTabs = (props: {
 
   return (
     <Tabs flex>
-      <Tab title="Results">
+      <Tab title="Race Results">
         <RaceList results={results} names={racerInfoLookup} />
       </Tab>
-      <Tab title="Roster">
+      <Tab title="Racer Statistics">
         <Racers results={results} names={racerInfoLookup} />
       </Tab>
     </Tabs>
