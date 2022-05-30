@@ -3,7 +3,7 @@ import { buildResults } from "../../_utils/buildResults";
 import { buildRacerInfoLookup } from "../../_utils/buildNamesLookup/buildRacerInfoLookup";
 import { names } from "../../results/2022/names";
 import { Tab, Tabs } from "grommet";
-import { Roster } from "./Roster";
+import { RaceList } from "./Roster";
 import { Racers } from "./Racers";
 import React from "react";
 
@@ -13,17 +13,16 @@ export const ResultsTypeTabs = (props: {
   names: CsvData;
 }) => {
   const results = buildResults(props.starts, props.ends);
-
   const racerInfoLookup = buildRacerInfoLookup(names);
 
   return (
     <Tabs flex>
       <Tab title="Results">
-        <Roster results={results} names={racerInfoLookup} />
+        <RaceList results={results} names={racerInfoLookup} />
       </Tab>
-      <Tab title="Roster">
-        <Racers results={results} names={racerInfoLookup} />
-      </Tab>
+      {/*<Tab title="Roster">*/}
+      {/*  <Racers results={results} names={racerInfoLookup} />*/}
+      {/*</Tab>*/}
     </Tabs>
   );
 };

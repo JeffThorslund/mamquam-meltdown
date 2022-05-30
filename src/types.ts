@@ -62,18 +62,14 @@ export interface CurrentRaceStatus {
 
 export type RaceStatus = undefined | number;
 
-export interface RaceRosterElement extends RaceRecord {
+export interface RaceRosterElement {
+  startTime: string;
+  endTime: string;
   racerId: RacerId;
   racerName: RacerName;
   totalTime: number | string;
   adjustedTime: number | string;
-}
-
-export interface RaceRosterElementNum extends RaceRosterElement {
-  racerId: RacerId;
-  racerName: RacerName;
-  totalTime: number | string;
-  adjustedTime: number;
+  missedGates: number;
 }
 
 export enum Routes {

@@ -1,10 +1,10 @@
 import { RacerInfoMap, Results } from "../../../types";
 import { Box, DataTable, Text } from "grommet";
 import React from "react";
-import { buildRaceRoster } from "./_utils/buildRaceRoster";
+import { buildListOfRaces } from "./_utils/buildListOfRaces";
 
-export function Roster(props: { results: Results; names: RacerInfoMap }) {
-  const raceRoster = buildRaceRoster(props.results, props.names).sort(
+export function RaceList(props: { results: Results; names: RacerInfoMap }) {
+  const raceRoster = buildListOfRaces(props.results, props.names).sort(
     (a, b) => {
       // equal items sort equally
       if (a.adjustedTime === b.adjustedTime) {
@@ -22,19 +22,16 @@ export function Roster(props: { results: Results; names: RacerInfoMap }) {
     }
   );
 
-  console.log({ raceRoster });
+  const [sort, setSort] = React.useState({
+    property: "name",
+    direction: "desc",
+  });
 
   return (
     <Box pad="medium">
       <DataTable
         step={raceRoster.length}
-        primaryKey={true}
-        // sortable={true}
-        // sort={{
-        //   direction: "desc",
-        //   external: false,
-        //   property: "adjustedTime",
-        // }}
+        primaryKey={false}
         columns={[
           {
             property: "racerName",
@@ -42,7 +39,6 @@ export function Roster(props: { results: Results; names: RacerInfoMap }) {
           },
           {
             property: "startTime",
-            primary: true,
             header: <Text>Start Time</Text>,
           },
           {
@@ -51,7 +47,7 @@ export function Roster(props: { results: Results; names: RacerInfoMap }) {
           },
           {
             property: "totalTime",
-            header: <Text>Total</Text>,
+            header: <Text>Total Time (seconds)</Text>,
           },
           {
             property: "missedGates",
@@ -59,10 +55,14 @@ export function Roster(props: { results: Results; names: RacerInfoMap }) {
           },
           {
             property: "adjustedTime",
-            header: <Text>Adjusted Time</Text>,
+            header: <Text>Adjusted Time (seconds)</Text>,
           },
         ]}
         data={raceRoster}
+        sort={{
+          property: "adjustedTime",
+          direction: "asc",
+        }}
       />
     </Box>
   );
